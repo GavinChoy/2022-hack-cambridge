@@ -7,7 +7,7 @@ export default class RightSideNav extends Component {
         const d = new Date()
         this.state = {
             time: `${d.getHours()}:${d.getMinutes()<10? `0${d.getMinutes()}` : d.getMinutes()}`,
-            date: `${d.getDate()}/${d.getMonth()+1 < 10? `0${d.getMinutes()}`: d.getMinutes()}/${d.getFullYear()}`,
+            date: `${d.getDate()}/${d.getMonth()+1 < 10? `0${d.getMonth()+1}`: d.getMinutes()}/${d.getFullYear()}`,
         }
         setInterval(this.setTime, 1000)
     }
@@ -15,7 +15,7 @@ export default class RightSideNav extends Component {
     setTime = () => {
         const d = new Date()
         if (d.getSeconds() === 0) {
-            this.setState({time: `${d.getHours()}:${d.getMinutes()<10? `0${d.getMinutes()}` : d.getMinutes()}`, date: `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`})
+            this.setState({time: `${d.getHours()}:${d.getMinutes()<10? `0${d.getMinutes()}` : d.getMinutes()}`, date: `${d.getDate()}/${d.getMonth()+1 < 10? `0${d.getMonth()+1}`: d.getMinutes()}/${d.getFullYear()}`})
         }
     }
 
