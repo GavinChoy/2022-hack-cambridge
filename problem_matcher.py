@@ -1,12 +1,29 @@
 import json
 from collections import defaultdict
 
+
+original_database_file = open("problem_database.json")
+
+symptoms_for_each_problem = json.load(original_database_file)["problems"]
+
+problems_for_each_symptom = defaultdict(lambda: set())
+severity_for_each_problem = {}
+
+for problem in symptoms_for_each_problem:
+    severity_for_each_problem[problem["problem"]] = problem["severity"]
+    for symptom in problem["symptoms"]:
+        problems_for_each_symptom[symptom].add(problem["problem"])
+
+
+for symptom in problems_for_each_symptom:
+    problems_for_each_symptom[symptom] = list(problems_for_each_symptom[symptom])
+
 def determine_problems(monitor_output):
     words_and_confidences = []
     for word_confidence in monitor_output["word_confidences"]:
         words_and_confidences.append((word_confidence["word"], word_confidence["confidence"]))
 
-    symptom_database = json.load(open("problem_database/symptom_database.json"))
+    symptom_database = problems_for_each_symptom #json.load(open("problem_database/symptom_database.json"))
     symptom_words_list = set()
     for symptom in symptom_database:
         for word in symptom.split():
@@ -35,7 +52,7 @@ def determine_problems(monitor_output):
                                key=lambda x: x[1], reverse=True)
 
     if problem_frequencies:
-        problem_severities = json.load(open("problem_database/problem_severities.json"))
+        problem_severities = severity_for_each_problem #json.load(open("problem_database/problem_severities.json"))
         severity = 0
         total_severity_weight = 0
         for problem in problem_severity_weights:
