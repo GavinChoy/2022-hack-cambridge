@@ -1,3 +1,5 @@
+import problem_matcher as matcher
+
 
 patient_data = {}
 
@@ -14,33 +16,33 @@ def respond_to_request(request):
     request_json = request.get_json()
     print(request)
     print(request_json)
-    if request.args and 'message' in request.args:
-        print("using arg parse")
-        print(request.args.get('message'))
-        return request.args.get('message')
-    elif request_json and 'message' in request_json:
+    if request_json and 'message' in request_json:
         print("using JSON") #JSON is always used so put function after here
-        print(request_json['message'])
-        return request_json['message']
+        #print(request_json['message'])
+        patient_message  = transcript_to_message(request_json['message'])
+        dump_user_data(patient_message)
+        return patient_message
     else:
         return f'Error parsing the JSON request'
 
 
 def transcript_to_message(transcript_dict):
     num = transcript_dict["patient_number"]
-    problem_list = []
+    sentiment_parsed = matcher.determine_problems(transcript_dict)
+
+    problem_list = sentiment_parsed["most_likely_problems"]
     action = []
-    severity = 10
+    severity = sentiment_parsed["severity"]
     text = transcript_dict["transcript"]
     time = transcript_dict["timestamp"]
-    
+
     message_out = {"patient_number":num, "problem":problem_list, "suggested_action":action, 
                    "severity":severity, "full_text":text, "time": time}
     return message_out
 
-def dump_user_data(transcript_dict):
-    patient = "patient" + transcript_dict["patient_number"]
+def dump_user_data(message):
+    patient = "patient" + message["patient_number"]
     if patient not in patient_data.keys():
-        patient_data[patient] = [transcript_dict]
+        patient_data[patient] = [message]
     else:
-        patient[patient].append(transcript_dict)
+        patient[patient].append(message)
