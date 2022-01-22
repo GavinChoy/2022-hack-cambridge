@@ -16,14 +16,16 @@ export default class Main extends Component {
     headers.append('Content-Type', 'application/json');
     headers.append('Accept', 'application/json');
     fetch('https://europe-west2-dementiaassist.cloudfunctions.net/transcription_sentiment', {
-      // headers: headers,
+      headers: headers,
+      mode: "cors",
       method: "POST",
       body: JSON.stringify(data),
     }).then((res)=>{
       // if (res.status !== 203) console.log(res) 
       console.log(res)
+      return res.json()
       // this.poll()
-    }).catch((err)=>{
+    }).then(data=>console.log(data)).catch((err)=>{
       console.log(err)
       this.poll()
     }
