@@ -21,6 +21,6 @@
     {"problem":"drug reaction", "action":"check medication","severity":3, "symptoms":["itching","skin rash", "stomach pain", "took pill", "took medication", "take medication", "drugs"]},
     {"problem":"peptic ulcer", "action":"bring antacids","severity":2, "symptoms":["vomit", "throwing up","not hungry","no appetite", "gassy", "fart", "bloated", "constipated"]},
     {"problem":"low blood sugar", "action":"bring glucose solution","severity":3, "symptoms":["weak", "sleepy", "shivering", "lethargic","restless", "hungry", "blurred","vision blurred", "hungry", "nauseaus", "feel sick", "tired"]},
-    {"problem":"high blood sugar", "action":"bring insulin","severity":1, "symptoms":["restless", "blurred","vision blurred", "nauseaus", "feel sick", "tired", "thirsty", "need water", "dehydrated"]},
+    {"problem":"high blood sugar", "action":"bring insulin","severity":1, "symptoms":["restless", "blurred","vision blurred", "nauseaus", "feel sick", "tired", "thirsty", "need water", "dehydrated"]}
   ]
 }
