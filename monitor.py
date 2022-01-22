@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*
 # Dependencies
+import sys
 import os
 import sounddevice as sd
 import asyncio
@@ -8,6 +9,27 @@ import requests
 from scipy.io.wavfile import write
 from deepgram import Deepgram
 
+
+#print(sys.argv)
+if len(sys.argv) == 4:
+    print("4 args")
+    _, PATIENT_NUMBER, RECORD_TIME_SECONDS, LANGUAGE = sys.argv
+elif len(sys.argv) == 3:
+    print("3 args")
+    _, PATIENT_NUMBER, RECORD_TIME_SECONDS = sys.argv
+    print("Language not specified, defaulting to English")
+    LANGUAGE = "english"
+elif len(sys.argv) == 2:
+    print("1 args")
+    _, PATIENT_NUMBER = sys.argv
+    print("Message length not specified, defaulting to 30 seconds")
+    RECORD_TIME_SECONDS = 30
+    print("Language not specified, defaulting to English")
+    LANGUAGE = "english"
+else:
+    raise Exception("Please supply a patient number, message time and language")
+
+RECORD_TIME_SECONDS = int(RECORD_TIME_SECONDS)
 
 URL = "https://europe-west2-dementiaassist.cloudfunctions.net/transcription_sentiment"
 HOME = os.path.expanduser("~")
@@ -24,10 +46,22 @@ CHUNK = 1024
 CHANNELS = 2
 RATE = 44100
 
-RECORD_TIME_SECONDS = 5
-
+def map_string_to_code(lang_str):
+    lower = lang_str.lower()
+    out = "en-GB"
+    if lower in ["english", "eng", "gb", "british", "uk"]:
+        out = "en-GB"
+    elif lower in ["french", "fr", "france"]:
+        out = "fr"
+    elif lower in ["german", "de", "germany"]:
+        out = "de"
+    elif lower in ["spanish", "spain", "es"]:
+        out = "es"
+    return out
+    
 
 def record_audio():
+    print("Beginning recording...")
     try:
         myrecording = sd.rec(int(RECORD_TIME_SECONDS * RATE), samplerate=RATE, channels=CHANNELS)
         sd.wait()  # Wait until recording is finished
@@ -42,32 +76,40 @@ def record_audio():
         return -1
     return 0
 
-def reduce_transcript_dict(transcript_dict):
+def reduce_transcript_dict(transcript_dict, lang_code="en-GB"):
+    timestamp = transcript_dict["metadata"]["created"]
     data = transcript_dict["results"]["channels"][0]["alternatives"][0]
     transcript = data["transcript"]
     total_confidence = data["confidence"]
-    word_confidences = []
+    word_dicts = []
     for w_dict in data["words"]:
-        word_confidences.append(w_dict["confidence"])
-    out_dict = {"transcript": transcript, "total_confidence": total_confidence, 
-                "word_confidences": word_confidences}
+        word_dicts.append(w_dict)
+    out_dict = {"message" : {"patient_number": PATIENT_NUMBER, "transcript": transcript, "total_confidence": total_confidence, 
+                "word_confidences": word_dicts, "timestamp": timestamp, "language": lang_code}}
     return out_dict
 
-def send_data(transcribe_json):
-    r = requests.post(URL, data=transcribe_json)
+
+def send_data(transcribe_dict):
+    print("Sending data to Cloud")
+    # use JSON kwarg to take dict and send as JSON stream in requests - works for GCP
+    r = requests.post(URL, json=transcribe_dict)
+    print("Data returned:")
+    print(r.text)
+
 
 async def transcript(): #from DG docs
     recording_successful = -1
     while recording_successful != 0: #loop until we get an audio file
         recording_successful = record_audio()
+    print("Recording finished!")
 
+    lang_code = map_string_to_code(LANGUAGE)
     dg_client = Deepgram(API_KEY)
     with open("output.wav", 'rb') as audio:
         source = {'buffer': audio, 'mimetype': 'audio/wav'}
-        response = await dg_client.transcription.prerecorded(source, {'punctuate': True})
-        reduced_dict = reduce_transcript_dict(response)
-        #print(json.dumps(response, indent=4))
-        print(reduced_dict)
+        response = await dg_client.transcription.prerecorded(source, {'punctuate': True, 'language': lang_code,})
+        reduced_dict = reduce_transcript_dict(response, lang_code)
+        print(reduced_dict["message"]["transcript"])
         send_data(reduced_dict)
 
 asyncio.run(transcript())
