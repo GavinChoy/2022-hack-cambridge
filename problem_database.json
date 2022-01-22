@@ -1,0 +1,9 @@
+{
+  "problems": [
+    {"problem":"heart attack", "words":["chest pain", "pain in my chest", "cannot breathe", "can't breathe", "short of breath", "lightheaded"]},
+    {"problem":"headache", "words":["headache", "head hurts", "head pain"]},
+    {"problem":"dehydration", "words":["thirsty", "water", "drink", "tired", "dry mouth", "mouth is dry"]},
+    {"problem":"hungry", "words":["hungry", "eat", "food"]},
+    {"problem":"asthma", "words":["wheezing", "short of breath", "chest is tight", "coughing"]}
+  ]
+}
