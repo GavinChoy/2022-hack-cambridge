@@ -1,7 +1,7 @@
 {
   "problems": [
     {"problem":"heart attack", "action":"give aspirin, prepare for surgery","severity":5, "symptoms":["chest pain", "cannot breathe", "can't breathe", "short breath", "difficulty breathing", "difficult breathe", "lightheaded", "pain"]},
-    {"problem":"headache", "action":"give water, rehydration treatment", "severity":1, "symptoms":["headache", "head hurts", "head pain"]},
+    {"problem":"headache", "action":"give water, administer aspirin, rehydration treatment", "severity":1, "symptoms":["headache", "head hurts", "head pain"]},
     {"problem":"dehydration",  "action":"give water, rehydration treatment","severity":1, "symptoms":["thirsty", "water", "drink", "tired", "dry mouth"]},
     {"problem":"hungry",  "action":"bring food","severity":1, "symptoms":["hungry", "eat", "food"]},
     {"problem":"asthma",  "action":"inhalor, bring water", "severity":2, "symptoms":["wheezing", "short breath", "cannot breathe", "can't breathe", "difficulty breathing", "difficult breathe", "chest tight", "coughing"]},
