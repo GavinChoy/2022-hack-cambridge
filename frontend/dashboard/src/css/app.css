@@ -157,8 +157,13 @@ ul {
 }
 
 .inv-sch {
+    padding-top: 18px;
+    padding-left: 20px;
     margin-top: 10px;
+    color: rgb(31, 2, 78);
     width: 100%;
+    font-size: 20px;
+    font-weight: bold;
     height: 50px;
     border-radius: 30px;
     background-color: white;
@@ -187,7 +192,7 @@ ul {
     margin-top: 20px;
     font-size: 180px;
     padding: 25px 50px 10px 50px;
-    color: #819aeb98
+    color: #fffca9f3
 }
 
 .p-name {
@@ -203,7 +208,7 @@ ul {
     width: 260px;
     /* background: blue; */
     font-weight: bold;
-    color: rgb(3, 25, 92);
+    /* color: rgb(3, 25, 92); */
 }
 
 .p-main {
@@ -211,25 +216,25 @@ ul {
     padding: 40px 20px;
     font-weight: bold;
     color: rgb(3, 25, 92);
+    font-size: 16px;
 }
 
 .pcard-m {
     display: flex;
-    align-items: center;
     margin-top: 30px;
     font-weight: bold;
-    color: rgb(3, 25, 92);
+    /* color: rgb(3, 25, 92); */
 }
 
 .pcard-text {
     margin-top: 10px;
     margin-bottom: 10px;
     font-weight: bold;
-    color: rgb(3, 25, 92);
+    /* color: rgb(3, 25, 92); */
 }
 
 .actions {
-    margin-left: 30%;
+    margin-left: 10%;
     font-weight: bold;
-    color: rgb(3, 25, 92);
+    /* color: rgb(3, 25, 92); */
 }

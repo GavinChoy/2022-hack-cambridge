@@ -10,7 +10,7 @@ export default class PatientsCard extends Component {
   }
 
   render() {
-    console.log(this.props)
+    console.log(this.props.actions)
     return (
     <div className="patients-card">
       <div className="p-info">
@@ -23,23 +23,23 @@ export default class PatientsCard extends Component {
         {/* <div>
           New Message >>
         </div> */}
-        <div className="pcard-text">
-        New Message >> {this.props.text.length > 0 ? this.props.text : "---"}
+        <div className="pcard-text" style={{fontSize: "20px"}}>
+        New Message: {this.props.text.length > 0 ? this.props.text : "---"}
         </div>
         <div className="pcard-m">
-          <div>
-            <div>Possible Problems</div>
+          <div style={{width: "50%"}}>
+            <div style={{fontSize: "20px"}}>Possible Problems</div>
             <ul>
               {this.props.problems.map(p=>{
-                <li>p</li>
+                return <li style={{marginTop: "5px"}}>- {p}</li>
               })}
             </ul>
           </div>
           <div className="actions">
-            <div>Suggested Actions</div>
+            <div style={{fontSize: "20px"}}>Suggested Actions</div>
             <ul>
               {this.props.actions.map(a=>{
-                <li>a</li>
+                  return <li style={{marginTop: "5px"}}>- {a}</li>
               })}
             </ul>
           </div>

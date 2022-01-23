@@ -29,17 +29,17 @@ export default class RightSideNav extends Component {
         </div>
         <div className="rsn-sch">
             <div className="inv-sch">
-
+                Provide post-operation care
             </div>
             <div className="inv-sch">
-                
-                </div>
-                <div className="inv-sch">
-                
-                </div>
-                <div className="inv-sch">
-                
-                </div>
+               Finish records write up  
+            </div>
+            <div className="inv-sch">
+                Supervise junior
+            </div>
+            <div className="inv-sch">
+                Organize workloads
+            </div>
         </div>
         <div className="rsn-title-2 margin-t"><span>Emergencies</span></div>
     </div>);

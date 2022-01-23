@@ -25,8 +25,8 @@ class SideNav extends Component {
         <div className="navprofile">
             <FontAwesomeIcon className="navprofile-description-i" icon={faUserNurse} />
             <div>
-                <div className="navprofile-description-b">Name</div>
-                <div className="navprofile-description">Occupation</div>
+                <div className="navprofile-description-b">St James's</div>
+                <div className="navprofile-description">Acute Care Ward</div>
             </div>
         </div>
         <div className="menu">Menu</div>
@@ -34,9 +34,6 @@ class SideNav extends Component {
                 <ul>
                     <li>
                         <button onClick={this.gotoPaitents}>Patients</button>
-                    </li>
-                    <li>
-                        <button onClick={this.gotoTasks}>Tasks</button>
                     </li>
                     <li>
                         <button onClick={this.gotoMap}>Map</button>

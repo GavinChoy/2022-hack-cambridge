@@ -28,8 +28,10 @@ export default class Main extends Component {
       // if (res.status !== 203) console.log(res) 
       console.log(res)
       return res.json()
+    }).then(data=>{
+      this.setState({patients: data})
       // this.poll()
-    }).then(data=>this.setState({patients: data})).catch((err)=>{
+    }).catch((err)=>{
       console.log(err)
       this.poll()
     }
@@ -53,7 +55,7 @@ export default class Main extends Component {
           severity={this.state.patients[key][0]['severity']}
         />)
       })}
-      {/* <PatientsCard /> */}
+      <div style={{height: "100px", width: "100%"}}/>
     </div>
     );
   }
