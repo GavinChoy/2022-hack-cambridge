@@ -5,7 +5,7 @@ import "../css/app.css";
 export default class Main extends Component {
 
   componentDidMount() {
-    this.poll()
+    //this.poll()
   }
 
   poll = () => {
