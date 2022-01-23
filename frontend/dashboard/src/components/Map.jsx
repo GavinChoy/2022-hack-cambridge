@@ -3,7 +3,7 @@ import ward from "./patient_ward.png"
 
 export default class Map extends Component {
   
-  patient_locs = [[150, 50], [50, 130], [52, 375], [150, 475], [360, 475]]
+  patient_locs = [[150, 50, "#eb4034"], [50, 130, "#eb4034"], [52, 375, "#eb7a34"], [150, 475, "#05ff1a"], [360, 475, "#eb7a34"]]
 
   onLoadImg = () => {
     let img = document.getElementById("ward")
@@ -34,7 +34,7 @@ export default class Map extends Component {
     let t = (Date.now() % 30) / 10
     for (let coord of this.patient_locs){
       console.log(t)
-      ctx.fillStyle = "#05ff1a"
+      ctx.fillStyle = coord[2]
       ctx.beginPath()
       ctx.arc(coord[0], coord[1], 20 + t, 0, 2 * Math.PI);
       ctx.fill()
@@ -48,7 +48,7 @@ export default class Map extends Component {
 
   render() {
     return (
-    <div style={{"paddingLeft": "4%"}}>
+    <div style={{"paddingLeft": "4%", "paddingTop": "4%"}}>
       <img id="ward" src={ward} style={{"display": "none"}} onLoad={this.onLoadImg} ></img>
       <canvas id="canvas" onClick={this.gotoMap}></canvas>
     </div>);
