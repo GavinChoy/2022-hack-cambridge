@@ -16,9 +16,16 @@ for problem in symptoms_for_each_problem:
     for symptom in problem["symptoms"]:
         problems_for_each_symptom[symptom].add(problem["problem"])
 
+        words = symptom.split()
+
+        if len(words) > 1:
+            problems_for_each_symptom[words[0] + "s " + words[1]].add(problem["problem"])
+            problems_for_each_symptom[words[0] + " " + words[1] + "s"].add(problem["problem"])
+            problems_for_each_symptom[words[0] + "s " + words[1] + "s"].add(problem["problem"])
 
 for symptom in problems_for_each_symptom:
     problems_for_each_symptom[symptom] = list(problems_for_each_symptom[symptom])
+
 
 def determine_problems(monitor_output, lang="same"):
     words_and_confidences = []
