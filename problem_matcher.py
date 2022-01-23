@@ -40,7 +40,7 @@ def determine_problems(monitor_output, lang="same"):
         lang="same": for English originals, set otherwise for patients speaking in another language
 
     OUTPUT:
-        dictionary of the form {'patient_number': patient number/ID, 'timestamp': timestamp of transcript, 'severity': overall severity score of patient request, 'most_likely_problems': [(potential problem 1, frequency of symptoms identified for problem 1), (potential problem 2, frequency of symptoms identified for problem 2), etc...], 'transcript': original transcript text, 'action': [(recommended action for problem 1, recommended action for problem 2, etc...)]}
+        dictionary of the form {'patient_number': patient number/ID, 'timestamp': timestamp of transcript, 'severity': overall severity score of patient request, 'most_likely_problems': [potential problem 1, potential problem 2, etc...], 'transcript': original transcript text, 'action': [(problem 1, recommended action for problem 1), (problem 2, recommended action for problem 2), etc...]}
     """
 
     # form a list of words and their Deepgram confidences
@@ -103,18 +103,19 @@ def determine_problems(monitor_output, lang="same"):
             action=action_for_each_problem[problem]
             actions.append((problem, action))
 
+        potential_problems = [problem for (problem, problem_frequency) in problem_frequencies]
 
         return {"patient_number":monitor_output["patient_number"],
                 "timestamp":monitor_output["timestamp"],
                 "severity": severity,
-                "most_likely_problems":problem_frequencies,
+                "most_likely_problems":potential_problems,
                 "transcript": monitor_output["transcript"],
                 "action":actions}
     else:
         return {"patient_number":monitor_output["patient_number"],
                 "timestamp":monitor_output["timestamp"],
                 "severity": 0,
-                "most_likely_problems":[("None", 1)],
+                "most_likely_problems":[],
                 "transcript": monitor_output["transcript"],
                 "action":[("None", "None")]
                 }
