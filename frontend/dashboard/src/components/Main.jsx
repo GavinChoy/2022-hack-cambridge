@@ -69,20 +69,23 @@ export default class Main extends Component {
   }
 
   render() {
-    if (this.state.patients) console.log(this.state.patients)
+    if (this.state.patients) console.log(this.state.patients['patient2'])
     return (
     <div className="patients-container">
       <div className="p-t">Patients</div>
       {this.state.patients && Object.keys(this.state.patients).map((key, index) => {
-        <PatientsCard 
+        {console.log(this.state.patients[key][0])}
+        return (
+        <PatientsCard
+          key={index}
           name={this.state.patients[key]}
-          problems={this.state.patients['patient2'][0]['problem']}
-          actions={this.state.patients['patient2'][0]['suggested_action']}
-          text={this.state.patients['patient2'][0]['full_text']}
-          severity={this.state.patients['patient2'][0]['severity']}
-        />
+          // problems={this.state.patients[key][0]['problem']}
+          // actions={this.state.patients[key][0]['suggested_action']}
+          text={this.state.patients[key][0]['full_text']}
+          // severity={this.state.patients[key][0]['severity']}
+        />)
       })}
-      <PatientsCard />
+      {/* <PatientsCard /> */}
     </div>
     );
   }
