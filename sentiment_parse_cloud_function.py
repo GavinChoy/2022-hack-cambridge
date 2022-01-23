@@ -60,12 +60,13 @@ def transcript_to_message(transcript_dict):
     lang = transcript_dict['language']
     if lang != "en-GB": #modify non-english word confidences as they're what's used by the matcher
         transcript_dict["translated"] = translate_text(text=transcript, source_lang_code=lang) #keep this as its useful later
-        langauge_setting = "different"
+        #for wc in transcript_dict["word_confidences"]:
+        #    wc["word"] = translate_text(text=wc["word"], source_lang_code=lang)
+        #    wc["confidence"] *= 0.7
     else:
         transcript_dict["translated"] = ""
-        langauge_setting = "same"
 
-    sentiment_parsed = matcher.determine_problems(transcript_dict, lang=langauge_setting)
+    sentiment_parsed = matcher.determine_problems(transcript_dict)
 
     problem_list = sentiment_parsed["most_likely_problems"]
     action = sentiment_parsed["action"]
@@ -78,12 +79,11 @@ def transcript_to_message(transcript_dict):
     return message_out
 
 def dump_user_data(message):
-    global patient_data
     patient = "patient" + message["patient_number"]
     if patient not in patient_data.keys():
         patient_data[patient] = [message]
     else:
-        patient_data[patient].append(message)
+        patient[patient].append(message)
 
 def translate_text(text="Hello, world!", project_id="dementiaassist", source_lang_code="fr"):
     client = translate.TranslationServiceClient()
