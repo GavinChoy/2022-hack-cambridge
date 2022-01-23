@@ -27,6 +27,21 @@ export default class RightSideNav extends Component {
             <span className="rsn-title">{this.state.date}</span>
             <span className="rsn-title mr-3">{this.state.time}</span>
         </div>
+        <div className="rsn-sch">
+            <div className="inv-sch">
+
+            </div>
+            <div className="inv-sch">
+                
+                </div>
+                <div className="inv-sch">
+                
+                </div>
+                <div className="inv-sch">
+                
+                </div>
+        </div>
+        <div className="rsn-title-2 margin-t"><span>Emergencies</span></div>
     </div>);
   }
 }
