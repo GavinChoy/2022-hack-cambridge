@@ -9,8 +9,9 @@ import requests
 from scipy.io.wavfile import write
 from deepgram import Deepgram
 
+#REMEMBER TO ACTIVATE THE RIGHT ENVIROMENT!
 
-#print(sys.argv)
+
 if len(sys.argv) == 4:
     print("4 args")
     _, PATIENT_NUMBER, RECORD_TIME_SECONDS, LANGUAGE = sys.argv
@@ -46,6 +47,7 @@ CHUNK = 1024
 CHANNELS = 2
 RATE = 44100
 
+
 def map_string_to_code(lang_str):
     lower = lang_str.lower()
     out = "en-GB"
@@ -58,7 +60,7 @@ def map_string_to_code(lang_str):
     elif lower in ["spanish", "spain", "es"]:
         out = "es"
     return out
-    
+
 
 def record_audio():
     print("Beginning recording...")
@@ -92,7 +94,11 @@ def reduce_transcript_dict(transcript_dict, lang_code="en-GB"):
 def send_data(transcribe_dict):
     print("Sending data to Cloud")
     # use JSON kwarg to take dict and send as JSON stream in requests - works for GCP
-    r = requests.post(URL, json=transcribe_dict)
+    status_code = 0
+    while status_code != 200:
+        print("Server busy, retrying")
+        r = requests.post(URL, json=transcribe_dict)
+        status_code =int(r.status_code)
     print("Data returned:")
     print(r.text)
 
