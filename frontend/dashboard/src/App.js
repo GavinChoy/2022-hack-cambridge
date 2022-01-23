@@ -6,6 +6,7 @@ import {
 import SideNav from "./components/SideNav";
 import Main from './components/Main';
 import Tasks from './components/Tasks'
+import Map from './components/Map'
 import RightSideNav from './components/RightSideNav'
 import "./css/app.css";
 
@@ -20,6 +21,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main}/> 
           <Route path="/tasks" exact component={Tasks} />
+          <Route path="/map" exact component={Map} />
         </Switch>
         <div className="d2"/>
         <RightSideNav />

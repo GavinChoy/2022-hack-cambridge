@@ -15,6 +15,10 @@ class SideNav extends Component {
         this.props.history.push('/tasks');
     }
 
+    gotoMap = () => {
+        this.props.history.push('/map');
+    }
+
   render() {
     return (
     <div className="main">
@@ -33,6 +37,9 @@ class SideNav extends Component {
                     </li>
                     <li>
                         <button onClick={this.gotoTasks}>Tasks</button>
+                    </li>
+                    <li>
+                        <button onClick={this.gotoMap}>Map</button>
                     </li>
                 </ul>
             </div>
