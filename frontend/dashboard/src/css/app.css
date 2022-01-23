@@ -202,8 +202,34 @@ ul {
 .p-info {
     width: 260px;
     /* background: blue; */
+    font-weight: bold;
+    color: rgb(3, 25, 92);
 }
 
 .p-main {
     flex-grow: 1;
+    padding: 40px 20px;
+    font-weight: bold;
+    color: rgb(3, 25, 92);
+}
+
+.pcard-m {
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    font-weight: bold;
+    color: rgb(3, 25, 92);
+}
+
+.pcard-text {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: rgb(3, 25, 92);
+}
+
+.actions {
+    margin-left: 30%;
+    font-weight: bold;
+    color: rgb(3, 25, 92);
 }
