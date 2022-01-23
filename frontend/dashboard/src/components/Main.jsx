@@ -4,6 +4,10 @@ import "../css/app.css";
 
 export default class Main extends Component {
 
+  state= {
+
+  }
+
   componentDidMount() {
     this.poll()
   }
@@ -25,7 +29,7 @@ export default class Main extends Component {
       console.log(res)
       return res.json()
       // this.poll()
-    }).then(data=>console.log(data)).catch((err)=>{
+    }).then(data=>this.setState({patients: data})).catch((err)=>{
       console.log(err)
       this.poll()
     }
@@ -33,7 +37,7 @@ export default class Main extends Component {
   }
 
   render() {
-    if (this.state.patients) console.log(this.state.patients['patient2'])
+    if (this.state.patients) console.log(this.state.patients)
     return (
     <div className="patients-container">
       <div className="p-t">Patients</div>
@@ -42,11 +46,11 @@ export default class Main extends Component {
         return (
         <PatientsCard
           key={index}
-          name={this.state.patients[key]}
-          // problems={this.state.patients[key][0]['problem']}
-          // actions={this.state.patients[key][0]['suggested_action']}
+          name={key}
+          problems={this.state.patients[key][0]['problem']}
+          actions={this.state.patients[key][0]['suggested_action']}
           text={this.state.patients[key][0]['full_text']}
-          // severity={this.state.patients[key][0]['severity']}
+          severity={this.state.patients[key][0]['severity']}
         />)
       })}
       {/* <PatientsCard /> */}
